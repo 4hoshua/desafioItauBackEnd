@@ -1,0 +1,35 @@
+version: '3'
+services:
+  desafioitau-db:
+    container_name: desafioitau-db
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: desafioitauApi-db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    networks:
+      - auth
+    ports:
+      - "5433:5432"
+
+  desafioitau-api:
+    container_name: desafioitau-api
+    build: './backend'
+    depends_on:
+      - desafioitau-db
+    environment:
+      - PORT=8080
+      - DB_HOST=desafioitau-db
+      - DB_PORT=5432
+      - DB_NAME=desafioitauApi-db
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+    networks:
+      - auth
+    ports:
+      - "8080:8080"
+  
+
+networks:
+  auth:
+    driver: bridge
