@@ -1,0 +1,1 @@
+INSERT INTO Transacoes (valor, datahora, createdat) VALUES (123.45, TIMESTAMP WITHOUT TIME ZONE '2020-08-07T12:34:56.789-03:00', NOW());
