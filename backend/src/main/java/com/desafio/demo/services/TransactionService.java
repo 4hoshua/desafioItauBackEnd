@@ -12,7 +12,7 @@ import java.time.OffsetDateTime;
 @Service
 public class TransactionService {
 
-    private TransactionRepository repository;
+    private final TransactionRepository repository;
 
     public TransactionService(TransactionRepository repository) {
         this.repository = repository;
@@ -41,5 +41,10 @@ public class TransactionService {
         entity = repository.save(entity);
 
         return new TransactionDTO(entity);
+    }
+
+    @Transactional
+    public void delete() {
+        repository.deleteAll();
     }
 }

@@ -1,7 +1,6 @@
 package com.desafio.demo.resources;
 
 import com.desafio.demo.DTO.TransactionDTO;
-import com.desafio.demo.entities.Transaction;
 import com.desafio.demo.services.TransactionService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +12,7 @@ import java.net.URI;
 @RequestMapping(value = "/transacao")
 public class TransactionController {
 
-    private TransactionService service;
+    private final TransactionService service;
 
     public TransactionController(TransactionService service) {
         this.service = service;
@@ -30,5 +29,12 @@ public class TransactionController {
                 .buildAndExpand(dto.getValue()).toUri();
 
         return ResponseEntity.created(uri).body(dto);
+    }
+
+    @DeleteMapping(value = "/transacao")
+    public ResponseEntity<Void> deleteAll() {
+
+        service.delete();
+        return ResponseEntity.noContent().build();
     }
 }
