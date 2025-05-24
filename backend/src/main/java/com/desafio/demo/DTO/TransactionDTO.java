@@ -7,7 +7,7 @@ import java.time.OffsetDateTime;
 
 public class TransactionDTO {
 
-    private Float value;
+    private Double value;
     private OffsetDateTime dateTime;
 
     public TransactionDTO(Transaction entity) {
@@ -15,18 +15,18 @@ public class TransactionDTO {
         this.dateTime = entity.getDateTime();
     }
 
-    public TransactionDTO(Float value, OffsetDateTime dateTime) {
+    public TransactionDTO(Double value, OffsetDateTime dateTime) {
         this.value = value;
         this.dateTime = dateTime;
     }
 
     public TransactionDTO() {};
 
-    public Float getValue() {
+    public Double getValue() {
         return value;
     }
 
-    public void setValue(Float value) {
+    public void setValue(Double value) {
         this.value = value;
     }
 

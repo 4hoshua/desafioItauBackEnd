@@ -8,6 +8,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.OffsetDateTime;
+import java.util.DoubleSummaryStatistics;
+import java.util.Iterator;
+import java.util.List;
+import java.util.stream.Stream;
 
 @Service
 public class TransactionService {
@@ -46,5 +50,37 @@ public class TransactionService {
     @Transactional
     public void delete() {
         repository.deleteAll();
+    }
+
+    @Transactional
+    public String getAllBySeconds(int time) {
+
+        DoubleSummaryStatistics doubleSummaryStatistics = new DoubleSummaryStatistics();
+
+        List<Double> statistics = repository.getLatestRecords(time);
+
+        long count;
+
+        if (statistics.isEmpty()) {
+
+            doubleSummaryStatistics.accept(0);
+            count = doubleSummaryStatistics.getCount() - 1;
+        }
+
+        else {
+
+            for (Double statistic : statistics) {
+                doubleSummaryStatistics.accept(statistic);
+            }
+
+            count = doubleSummaryStatistics.getCount();
+        }
+
+
+        return "{\"count\":" + count + ","
+                + "\"sum\":" + doubleSummaryStatistics.getSum() + ","
+                + "\"avg\":" + doubleSummaryStatistics.getAverage() + ","
+                + "\"min\":" + doubleSummaryStatistics.getMin() + ","
+                + "\"max\":" + doubleSummaryStatistics.getMax() + "}";
     }
 }

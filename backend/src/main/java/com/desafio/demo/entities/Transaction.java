@@ -16,7 +16,7 @@ public class Transaction {
     private Long id;
 
     @Column(name = "valor")
-    private Float value;
+    private Double value;
 
     @Column(name = "datahora", columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     private OffsetDateTime dateTime;
@@ -45,7 +45,7 @@ public class Transaction {
         updatedAt = Instant.now();
     }
 
-    public Transaction(Long id, Float value, OffsetDateTime dateTime) {
+    public Transaction(Long id, Double value, OffsetDateTime dateTime) {
         this.id = id;
         this.value = value;
         this.dateTime = dateTime;
@@ -61,11 +61,11 @@ public class Transaction {
         this.id = id;
     }
 
-    public Float getValue() {
+    public Double getValue() {
         return value;
     }
 
-    public void setValue(Float value) {
+    public void setValue(Double value) {
         this.value = value;
     }
 

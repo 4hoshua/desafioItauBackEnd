@@ -37,4 +37,12 @@ public class TransactionController {
         service.delete();
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping(value = "/estatistica/{time}")
+    public ResponseEntity<String> getStatistics (@PathVariable int time) {
+
+        String body = service.getAllBySeconds(time);
+        return ResponseEntity.ok().body(body);
+
+    }
 }
